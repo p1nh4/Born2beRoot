@@ -1,56 +1,61 @@
+# Recursos — Born2beRoot
 
-Oque é uma VM:
-	https://azure.microsoft.com/pt-pt/resources/cloud-computing-dictionary/what-is-a-virtual-machine/
-	https://aws.amazon.com/pt/what-is/virtual-machine/
+## Máquinas Virtuais
 
-Propositos de uma VM:
-	Executar um computador na mesma maquina, com isso podemos testar sotfware,
-	duplicar a maquina e usar em diferentes maquinas. Tudo isso isolado do sistema
-	principal. Caso de servidores, caso o principal pare, podemos so ligar as VMs
-	em outra maquina, e caso quebre a VMs nao havera problema no sistema principal.
+**O que é uma VM:**
+- [O que é uma Máquina Virtual? - Azure](https://azure.microsoft.com/pt-pt/resources/cloud-computing-dictionary/what-is-a-virtual-machine/)
+- [O que é uma Máquina Virtual? - AWS](https://aws.amazon.com/pt/what-is/virtual-machine/)
 
-	https://www.reddit.com/r/homelab/comments/qw4bqn/why_use_virtual_machines/?tl=pt-br
+**Propósitos de uma VM:**
+Permitem executar um sistema isolado dentro da máquina principal. Útil para testar software, duplicar ambientes e usar em diferentes máquinas sem afetar o sistema principal. Em servidores, se o host principal parar, basta migrar as VMs para outra máquina.
+- [Por que usar VMs? - Reddit](https://www.reddit.com/r/homelab/comments/qw4bqn/why_use_virtual_machines/?tl=pt-br)
 
-Escolha de S.O
-	Debian devido a facilidade e suporte da comunidade, se quisesse algo mais enterprise
-	escolheria algo relacionado a base de CentOS.
-	Diferenca com CentOS, um vem da base de Red Hat, o Debian usa pacotes
-	apt e .deb
+---
 
-	https://www.reddit.com/r/homelab/comments/1cscznh/debian_vs_rocky_linux_for_my_server/?tl=pt-br
+## Escolha do Sistema Operacional
 
-Diferencas aptitude e apt
-	apt seria a versao atualizada de apt-get via linha de comandos, e aptitude seria um instalador
-	que vem com uma interface TUI mais amigavel para instalar pacotes. O primeiro e mais rapido
-	e simples o outro para sistemas mais grandes.
+Debian foi escolhido pela facilidade e suporte da comunidade. Para ambientes enterprise seria preferível algo baseado em CentOS/Red Hat. A diferença principal: Rocky/CentOS usa base Red Hat com pacotes `dnf`/`.rpm`, enquanto o Debian usa `apt`/`.deb`.
+- [Debian vs Rocky para servidores - Reddit](https://www.reddit.com/r/homelab/comments/1cscznh/debian_vs_rocky_linux_for_my_server/?tl=pt-br)
 
-	https://aws.amazon.com/pt/compare/the-difference-between-apt-and-apt-get/
-	https://www.youtube.com/watch?v=stWpR_KpGD8
-	https://www.reddit.com/r/debian/comments/ymuu6l/what_is_the_difference_between_apt_aptget_and/?tl=pt-br
-	https://debian-handbook.info/browse/pt-BR/stable/sect.apt-get.html
+---
 
-Oque e AppArmor
-	Ele restringe como uma cerca eletrica a execucao dos programas de acordo a onde esta localizado.
-	O kernel vai vef. cada vez no AppArmor as permissoes dadas antes de executar aquele processo.
+## apt vs aptitude
 
-	https://debian-handbook.info/browse/pt-BR/stable/sect.apparmor.html
-	https://plus.diolinux.com.br/t/apparmor-uma-camada-extra-de-seguranca-para-o-linux/69091
+`apt` é a versão atualizada do `apt-get` via linha de comandos — mais rápido e simples. `aptitude` tem uma interface TUI mais amigável, mais adequado para gestão de sistemas maiores.
+- [apt vs apt-get - AWS](https://aws.amazon.com/pt/compare/the-difference-between-apt-and-apt-get/)
+- [Visão geral do aptitude - YouTube](https://www.youtube.com/watch?v=stWpR_KpGD8)
+- [apt vs aptitude - Reddit](https://www.reddit.com/r/debian/comments/ymuu6l/what_is_the_difference_between_apt_aptget_and/?tl=pt-br)
+- [Debian Handbook - apt](https://debian-handbook.info/browse/pt-BR/stable/sect.apt-get.html)
 
-Oque e LVM
-	Cria uma camada de abstracao entre os discos fisicos e sistema de arquivos permitindo
-	redimensionar particoes, agrupar multiplos discos em piscinas, sem necessidade de formatar
-	ou perda de dados (flexivel)
+---
 
-	https://wiki.archlinux.org/title/LVM_(Portugu%C3%AAs)
-	https://www.reddit.com/r/linux4noobs/comments/8gvj0j/how_does_lvm_work_exactly/?tl=pt-pt
+## AppArmor
 
-Secure installation mysql
-	https://superuser.com/questions/364086/error-message-sudo-mysql-secure-installation-command-not-found
+Restringe a execução dos programas com base no caminho do ficheiro — funciona como uma cerca elétrica. O kernel verifica as permissões do AppArmor antes de executar qualquer processo.
+- [AppArmor - Debian Handbook](https://debian-handbook.info/browse/pt-BR/stable/sect.apparmor.html)
+- [Visão geral do AppArmor - DioLinux](https://plus.diolinux.com.br/t/apparmor-uma-camada-extra-de-seguranca-para-o-linux/69091)
 
-projetos baseados:
-	https://noreply.gitbook.io/born2beroot/bonus-services/wordpress
-	https://github.com/Vikingu-del/Born2beRoot/tree/main/photos
-	https://github.com/mcombeau/Born2beroot/blob/main/guide/bonus_debian.md
+---
 
-tester:
-	https://github.com/gemartin99/Born2beroot-Tester
+## LVM
+
+Cria uma camada de abstração entre os discos físicos e o sistema de arquivos, permitindo redimensionar partições e agrupar múltiplos discos em pools, sem necessidade de formatar ou perda de dados.
+- [LVM - Arch Wiki (PT)](https://wiki.archlinux.org/title/LVM_(Portugu%C3%AAs))
+- [Como funciona o LVM? - Reddit](https://www.reddit.com/r/linux4noobs/comments/8gvj0j/how_does_lvm_work_exactly/?tl=pt-pt)
+
+---
+
+## MariaDB
+
+- [mysql_secure_installation - SuperUser](https://superuser.com/questions/364086/error-message-sudo-mysql-secure-installation-command-not-found)
+
+---
+
+## Guias de referência para o Bonus
+
+Projetos base consultados para a configuração do WordPress e Fail2ban:
+- [Born2beRoot Bonus - Gitbook](https://noreply.gitbook.io/born2beroot/bonus-services/wordpress)
+- [Born2beRoot - Vikingu-del](https://github.com/Vikingu-del/Born2beRoot/tree/main/photos)
+- [Born2beRoot - mcombeau](https://github.com/mcombeau/Born2beroot/blob/main/guide/bonus_debian.md)
+
+
