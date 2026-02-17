@@ -1,0 +1,17 @@
+create user
+	sudo adduser <login>
+
+create group
+	sudo addgroup <group>
+
+view GID (group identifier)
+	getent group <groupname>
+
+add user for a group
+	sudo adduser <username> <groupname>
+
+verify group membership
+	getent group sudo <groupname>
+
+connect with ssh localhost with specific port
+	ssh <user>@localhost -p <port>
