@@ -14,7 +14,7 @@ O projeto abrange conceitos fundamentais de administração de servidores: parti
 
 ### Requisitos
 
-- VirtualBox (ou UTM no Apple Silicon)
+- VirtualBox
 - Debian (versão estável mais recente)
 
 ### Acessando a VM
@@ -42,17 +42,9 @@ sudo fail2ban-client status sshd        # Estado da jail SSH
 
 As referências completas — documentação, artigos e tutoriais — estão listadas em [resources.md](./resources.md).
 
-Os três guias principais usados como base para o bonus foram:
-- [Born2beRoot Bonus - Gitbook](https://noreply.gitbook.io/born2beroot/bonus-services/wordpress)
-- [Born2beRoot - Vikingu-del](https://github.com/Vikingu-del/Born2beRoot/tree/main/photos)
-- [Born2beRoot - mcombeau](https://github.com/mcombeau/Born2beroot/blob/main/guide/bonus_debian.md)
-
 ### Uso de IA
 
-A IA foi utilizada nas seguintes tarefas:
-- Organização e redação do `README.md`
-- Esclarecimento de conceitos: AppArmor, LVM, políticas de sudo
-- Análise de logs do Fail2ban e verificação de regras UFW durante a configuração do bonus
+A IA foi utilizada na organização e redação do `README.md`
 
 ---
 
@@ -79,17 +71,28 @@ O Debian foi escolhido em vez do Rocky Linux pelos seguintes motivos:
 
 ### AppArmor vs SELinux
 
-Ambos são sistemas de Controle de Acesso Obrigatório (MAC) que restringem o que os programas podem fazer, adicionando uma camada de segurança além das permissões Unix tradicionais.
+Ambos são sistemas de Controle de Acesso Obrigatório (MAC) que restringem
+o que os programas podem fazer, adicionando uma camada de segurança além
+das permissões Unix tradicionais.
 
-- **AppArmor** funciona com base em caminhos de arquivo. Cada programa possui um perfil que define quais arquivos e capacidades pode acessar. O kernel verifica as políticas do AppArmor antes de executar qualquer processo. Mais simples de configurar.
-- **SELinux** funciona com base em rótulos atribuídos a cada arquivo, processo e recurso. É mais granular e oferece garantias de segurança mais fortes, mas é significativamente mais complexo de configurar. Padrão em sistemas Red Hat.
+- **AppArmor** funciona com base em caminhos de arquivo. Cada programa possui
+um perfil que define quais arquivos e capacidades pode acessar. O kernel
+verifica as políticas do AppArmor antes de executar qualquer processo e
+mais simples de configurar.
+- **SELinux** funciona com base em rótulos atribuídos a cada arquivo, processo
+e recurso. É mais granular e oferece garantias de segurança mais fortes, mas é
+significativamente mais complexo de configurar e o padrão em sistemas Red Hat.
 
 ### UFW vs firewalld
 
-- **UFW (Uncomplicated Firewall)** é uma interface para o `iptables` projetada para simplificar o gerenciamento de firewall em Debian. As regras são diretas e fáceis de entender.
-- **firewalld** é usado em Rocky/RHEL. Suporta alterações dinâmicas sem reiniciar e utiliza o conceito de "zonas" para organizar regras.
+- **UFW (Uncomplicated Firewall)** é uma interface para o `iptables` projetada
+para simplificar o gerenciamento de firewall em Debian, as regras são diretas
+e mais fáceis de entender.
+- **firewalld** é usado em Rocky/RHEL. Suporta alterações dinâmicas sem reiniciar
+e utiliza o conceito de "zonas" para organizar regras.
 
-Neste projeto, o UFW foi configurado com a porta 4242 (SSH) na parte obrigatória. No bonus, a porta 8080 (WordPress) foi adicionada.
+Neste projeto, o UFW foi configurado com a porta 4242 (SSH) na parte obrigatória.
+No bonus, a porta 8080 (WordPress) foi adicionada.
 
 ### VirtualBox vs UTM
 
@@ -118,6 +121,10 @@ O VirtualBox foi utilizado neste projeto em um host Linux x86.
 
 Site WordPress funcional configurado com lighttpd como servidor web, MariaDB como base de dados e PHP para processamento dinâmico. Acessível via porta 8080.
 
+```
+http://localhost:8080
+```
+
 ### Fail2ban
 
 O Fail2ban foi escolhido como serviço adicional por complementar diretamente a configuração SSH do projeto, protegendo contra ataques de força bruta. Monitoriza os logs de autenticação e bloqueia automaticamente IPs que excedam o número máximo de tentativas.
@@ -136,3 +143,38 @@ backend  = %(sshd_backend)s
 ```
 
 O funcionamento foi testado manualmente: após 3 tentativas de login SSH com senha errada, o IP foi automaticamente banido e o evento registado em `/var/log/fail2ban.log`.
+
+Para testar, na máquina host tente conectar via SSH com senha errada 3 vezes:
+
+```bash
+ssh <usuario>@localhost -p 4241
+# Introduza senha errada 3 vezes → IP banido automaticamente
+```
+
+Verificar na VM se o ban foi aplicado:
+
+```bash
+sudo fail2ban-client status sshd   # Confirma IP na "Banned IP list"
+sudo tail -f /var/log/fail2ban.log # Mostra o evento de ban em tempo real
+```
+
+Para remover o ban e repetir o teste:
+
+```bash
+sudo fail2ban-client set sshd unbanip <IP>
+```
+
+---
+
+# Bom Código!
+
+```c
+#include <unistd.h>
+
+int main(void)
+{
+    char *autor = "@p1nh4";
+    write(1, autor, 6);
+    return (0);
+}
+```
