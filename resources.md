@@ -58,7 +58,7 @@ discos em pools, sem necessidade de formatar ou perda de dados.
 
 ## Guias de referência para o Bonus
 
-Projetos base consultados para a configuração do WordPress e Fail2ban:
+Projetos base consultados para a configuração:
 - [Born2beRoot Bonus - Gitbook](https://noreply.gitbook.io/born2beroot/bonus-services/wordpress)
 - [Born2beRoot - Vikingu-del](https://github.com/Vikingu-del/Born2beRoot/tree/main/photos)
 - [Born2beRoot - mcombeau](https://github.com/mcombeau/Born2beroot/blob/main/guide/bonus_debian.md)
