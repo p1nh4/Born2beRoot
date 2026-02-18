@@ -4,9 +4,11 @@
 
 ## Descrição
 
-Born2beRoot é um projeto de administração de sistemas do currículo da 42. O objetivo é configurar um servidor Linux seguro dentro de uma máquina virtual, seguindo regras específicas de particionamento, gerenciamento de usuários, políticas de segurança e monitoramento.
+Born2beRoot é um projeto de administração de sistemas do currículo da 42. O objetivo é configurar um servidor Linux seguro dentro de uma máquina virtual,
+seguindo regras específicas de particionamento, gerenciamento de usuários, políticas de segurança e monitoramento.
 
-O projeto abrange conceitos fundamentais de administração de servidores: partições criptografadas com LVM, configuração de firewall, endurecimento do SSH, políticas de sudo e um script de monitoramento personalizado.
+O projeto abrange conceitos fundamentais de administração de servidores: partições criptografadas com LVM, configuração de firewall, endurecimento do SSH,
+políticas de sudo e um script de monitoramento personalizado.
 
 ---
 
@@ -40,7 +42,7 @@ sudo fail2ban-client status sshd        # Estado da jail SSH
 
 ## Recursos
 
-As referências completas — documentação, artigos e tutoriais — estão listadas em [resources.md](./resources.md).
+As referências completas (documentação, artigos e tutoriais), estão listadas em [resources.md](./resources.md).
 
 ### Uso de IA
 
@@ -96,22 +98,26 @@ No bonus, a porta 8080 (WordPress) foi adicionada.
 
 ### VirtualBox vs UTM
 
-- **VirtualBox** é um hipervisor gratuito e multiplataforma da Oracle que suporta x86/x64. Amplamente utilizado em ambientes educacionais com boas funcionalidades de snapshots e port forwarding via NAT.
+- **VirtualBox** é um hipervisor gratuito e multiplataforma da Oracle que suporta x86/x64. Amplamente utilizado em ambientes educacionais
+com boas funcionalidades de snapshots e port forwarding via NAT.
 - **UTM** é utilizado em Macs com Apple Silicon (M1/M2), pois o VirtualBox não suporta ARM nativamente. O UTM utiliza o QEMU internamente.
 
 O VirtualBox foi utilizado neste projeto em um host Linux x86.
 
 ### Principais Decisões de Design
 
-**Particionamento:** Partições criptografadas com LVM. O LVM adiciona uma camada de abstração entre os discos físicos e o sistema de arquivos, permitindo redimensionar e agrupar partições sem perda de dados.
+**Particionamento:** Partições criptografadas com LVM. O LVM adiciona uma camada de abstração entre os discos físicos e o sistema de arquivos,
+permitindo redimensionar e agrupar partições sem perda de dados.
 
-**Políticas de segurança:** Política de senha estrita (expiração a cada 30 dias, mínimo de 10 caracteres, maiúsculas, minúsculas e números obrigatórios, máximo de 3 caracteres idênticos consecutivos). Sudo limitado a 3 tentativas, com todas as ações registradas em `/var/log/sudo/`.
+**Políticas de segurança:** Política de senha estrita (expiração a cada 30 dias, mínimo de 10 caracteres, maiúsculas, minúsculas e números obrigatórios,
+máximo de 3 caracteres idênticos consecutivos). Sudo limitado a 3 tentativas, com todas as ações registradas em `/var/log/sudo/`.
 
 **Gerenciamento de usuários:** Usuário não-root pertencente aos grupos `user42` e `sudo`. Login SSH como root desabilitado.
 
 **Serviços:** SSH apenas na porta 4242. UFW ativo na inicialização. Script `monitoring.sh` executado a cada 10 minutos via cron.
 
-**Porta 8080 para o WordPress:** A porta 80 requer privilégios root no Linux (portas abaixo de 1024 são reservadas ao sistema). Como o lighttpd é executado sem privilégios root por segurança, foi utilizada a porta 8080.
+**Porta 8080 para o WordPress:** A porta 80 requer privilégios root no Linux (portas abaixo de 1024 são reservadas ao sistema).
+Como o lighttpd é executado sem privilégios root por segurança, foi utilizada a porta 8080.
 
 ---
 
@@ -127,7 +133,8 @@ http://localhost:8080
 
 ### Fail2ban
 
-O Fail2ban foi escolhido como serviço adicional por complementar diretamente a configuração SSH do projeto, protegendo contra ataques de força bruta. Monitoriza os logs de autenticação e bloqueia automaticamente IPs que excedam o número máximo de tentativas.
+O Fail2ban foi escolhido como serviço adicional por complementar diretamente a configuração SSH do projeto, protegendo contra ataques de força bruta.
+Monitoriza os logs de autenticação e bloqueia automaticamente IPs que excedam o número máximo de tentativas.
 
 Configuração aplicada (`/etc/fail2ban/jail.local`):
 
