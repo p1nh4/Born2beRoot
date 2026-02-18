@@ -15,3 +15,56 @@ verify group membership
 
 connect with ssh localhost with specific port
 	ssh <user>@localhost -p <port>
+
+----------------------------------------------------------------------------------------
+Apps
+	UFW Status
+		sudo ufw status (ports)
+		sudo service ufw status (service)
+		sudo service ufw status numbered (service numbered)
+		dpkg -s ufw (advanced vef. program)
+
+	UFW create and delete
+		sudo ufw allow <port>
+		sudo ufw delete <num_service [0..]>
+
+	SSH
+		which ssh (exist)
+		sudo service ssh status (service)
+		vef. access with <user>@localhost -p <port>
+
+	contrab
+		https://crontab.guru/
+		sudo contrab -u root -e
+
+vef OS machine
+	uname -v
+
+vef machine name
+	hostname
+
+change hostname
+	https://superuser.com/questions/1195926/etc-hostname-vs-etc-hosts-vs-etc-sysconfig-network-in-centos7
+		vim /etc/hostname
+		sudo reboot
+
+vef GUI in machine
+	ls /usr/bin/*session
+
+vef partitions
+	lsblk
+
+vef sudo
+	which sudo
+
+----------------------------------------------------------------------------------------------
+
+
+vef sudo policies
+	vim /etc/sudoers.d/sudo_config
+
+vef logs sudo
+	cd /var/log/sudo
+	cat sudo_config
+
+
